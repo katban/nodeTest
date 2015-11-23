@@ -6,7 +6,11 @@ var PlaceSchema = new mongoose.Schema({
 	buildingName: String,
 	street: String,
 	buildingNumber: String,
-	phone: String
+	phone: String,
+	score: {
+		count: Number,
+		rate: Number
+	}
 });
 
 module.exports = mongoose.model('Place', PlaceSchema);

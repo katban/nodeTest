@@ -20,8 +20,10 @@ var port = 3000;
 // w ekspersie zawarty jest router - odpowiada za endpointy
 var router = express.Router();
 
+var placesRoute = router.route('/places');
+
 //pierwszy end-point
-router.get('/', function (reg, res) {
+placesRoute.get(function (reg, res) {
 	Place.find(function(err, places){
 		if (err) {
 			res.send(err);
@@ -32,7 +34,7 @@ router.get('/', function (reg, res) {
 
 
 // sciezka do posta
-router.post('/', function (req, res) {
+placesRoute.post(function (req, res) {
 	// nowa instancja danego obiektu
 	var place = new Place();
 
@@ -59,6 +61,18 @@ router.get('kwiatki', function(reg, res) {
 		'name': 'Bratek'
 	});
 });
+
+var placeRoute = router.route('/places/:place_id');
+
+placeRoute.get(function(req, res) {
+	Place.findById(req.params.place_id, function(err, place) {
+		if(err) {
+			res.send(err);
+		}
+		res.json(place);
+	});
+});
+
 
 // router trzeba zarejestrowac w aplikacji
 app.use('/api', router);

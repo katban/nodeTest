@@ -18,6 +18,7 @@ app.use(cors());
 
 // dodanie parsera
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 //port ktory bedzie uzywac aplikacje
 var port = 3000;

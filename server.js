@@ -31,6 +31,9 @@ router.route('/places/:place_id')
 	.put(PlaceController.putPlace)
 	.delete(PlaceController.deletePlace);
 
+router.route('/place/:place_id/rate')
+	.post(PlaceController.ratePlace);
+
 
 //pierwszy end-point
 //drugi endpiont

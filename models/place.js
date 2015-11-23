@@ -8,8 +8,8 @@ var PlaceSchema = new mongoose.Schema({
 	buildingNumber: String,
 	phone: String,
 	score: {
-		count: Number,
-		rate: Number
+		count: String,
+		rate: String
 	}
 });
 

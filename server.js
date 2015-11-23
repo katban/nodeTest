@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var Place = require('./models/place');  //bez .js
 var PlaceController = require('./controllers/placeController');
@@ -11,6 +12,9 @@ mongoose.connect('mongodb://localhost:27017/nodetest');
 
 //tworze aplikacje z expressem
 var app = express();
+
+// dodatnie corsa
+app.use(cors());
 
 // dodanie parsera
 app.use(bodyParser.urlencoded({extended: true}));

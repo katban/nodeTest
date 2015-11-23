@@ -99,37 +99,39 @@ exports.ratePlace = function(req, res) {
             res.send(err);
         }
 
-        if(place.score.rate == 'NaN' || place.score.count == 'NaN') {
-            place.score.rate = 0;
-            place.score.count = 0;
-        }
-
-        if(place.score) { // czy cos jest
-
-            if(+req.body.rate < 1 || +req.body.rate > 5) {
-                res.send({message: 'Mozesz ocenic tylko w stali 1-5'});
-            }
-
-            var tempRate = place.score.rate * place.score.count + +req.body.rate;
-            place.score.count++;
-            place.score.rate = tempRate / place.score.count;
-
+        if(+req.body.rate < 1 || +req.body.rate > 5) {
+            res.send({message: 'Mozesz ocenic tylko w stali 1-5'});
         }
         else {
-            place.score = {};
-            place.score.rate = +req.body.rate; // plusik zamienia mi stringa na number
-            place.score.count = 1;
-        }
-
-        place.score.rate = place.score.rate.toString();
-        place.score.count = place.score.count.toString();
-
-        place.save(function (err) {
-            if(err) {
-                res.send(err);
+            if (place.score.rate == 'NaN' || place.score.count == 'NaN') {
+                place.score.rate = 0;
+                place.score.count = 0;
             }
-            res.json(place);
-        });
+
+            if (place.score) { // czy cos jest
+
+
+                var tempRate = place.score.rate * place.score.count + +req.body.rate;
+                place.score.count++;
+                place.score.rate = tempRate / place.score.count;
+
+            }
+            else {
+                place.score = {};
+                place.score.rate = +req.body.rate; // plusik zamienia mi stringa na number
+                place.score.count = 1;
+            }
+
+            place.score.rate = place.score.rate.toString();
+            place.score.count = place.score.count.toString();
+
+            place.save(function (err) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(place);
+            });
+        }
 
     });
 };
